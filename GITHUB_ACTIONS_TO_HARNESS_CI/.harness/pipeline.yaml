@@ -1,0 +1,98 @@
+pipeline:
+  name: python-pipeline-samples
+  identifier: pythonpipelinesamples
+  projectIdentifier: krishikasingh
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: pythonsampleconnector
+        repoName: python-pipeline-samples
+        build: <+input>
+  stages:
+    - stage:
+        name: build test and run
+        identifier: build_test_and_run
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: "code compilation "
+                  identifier: code_compilation
+                  spec:
+                    connectorRef: docker_Quickstart
+                    image: python:3.10.6-alpine
+                    shell: Sh
+                    command: python -m compileall ./
+              - step:
+                  type: Run
+                  name: create docker-file
+                  identifier: create_dockerfile
+                  spec:
+                    connectorRef: docker_Quickstart
+                    image: alpine
+                    shell: Sh
+                    command: |-
+                      touch pythondockerfile
+                      cat > pythondockerfile <<- EOM
+                      FROM python:3.10.6-alpine
+                      WORKDIR /python-pipeline-samples
+                      ADD . /python-pipeline-samples
+                      RUN pip install -r requirements.txt
+                      CMD ["python" , "app.py"]
+                      EOM
+                      cat pythondockerfile
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: build and push to the docker registry
+                  identifier: build_and_push_to_the_docker_registry
+                  spec:
+                    connectorRef: docker_Quickstart
+                    repo: krishi0408/pythonsample
+                    tags:
+                      - latest
+                    dockerfile: pythondockerfile
+    - stage:
+        name: integration test
+        identifier: integration_test
+        type: CI
+        spec:
+          cloneCodebase: false
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Background
+                  name: python server
+                  identifier: python_server
+                  spec:
+                    connectorRef: docker_Quickstart
+                    image: krishi0408/pythonsample
+                    shell: Sh
+                    command: python3 /python-pipeline-samples/app.py
+              - step:
+                  type: Run
+                  name: test connection to the server
+                  identifier: test_connection_to_the_server
+                  spec:
+                    connectorRef: docker_Quickstart
+                    image: curlimages/curl:7.73.0
+                    shell: Sh
+                    command: |-
+                      sleep 10
+                      curl localhost:5000
