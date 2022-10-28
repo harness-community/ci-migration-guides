@@ -27,8 +27,8 @@ Harness CI and GitHub Actions both allow you to create workflows that automatica
 - Harness CI 
         
         stages:
-        -stage:
-           name: build test and run 
+         - stage:
+             name: build test and run 
 
 ### 2. Define a step inside a stage
 
