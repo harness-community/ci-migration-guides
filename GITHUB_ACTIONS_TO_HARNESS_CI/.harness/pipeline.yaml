@@ -58,7 +58,7 @@ pipeline:
                   identifier: build_and_push_to_the_docker_registry
                   spec:
                     connectorRef: docker_Quickstart
-                    repo: krishi0408/pythonsample
+                    repo: user/pythonsample
                     tags:
                       - latest
                     dockerfile: pythondockerfile
@@ -82,7 +82,7 @@ pipeline:
                   identifier: python_server
                   spec:
                     connectorRef: docker_Quickstart
-                    image: krishi0408/pythonsample
+                    image: user/pythonsample
                     shell: Sh
                     command: python3 /python-pipeline-samples/app.py
               - step:
