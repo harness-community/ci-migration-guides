@@ -1,0 +1,71 @@
+name: pyhton-pipeline-samples
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build_test_and_run:
+   name: build test and run
+   runs-on: python:3.10.6-alpine
+   steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: login to dockerhub
+        uses: docker/login-action@v2
+        with: 
+          username: {{ secrets.DOCKERHUB_USERNAME }}
+          password: {{ secrets.DOCKERHUB_TOKEN }}
+          
+      -  name: code compilation
+         container:
+               image: python:3.10.6-alpine
+         run: |
+           python -m compileall ./
+
+      -  name: Build Docker file
+         container:
+               image: alpine
+         run: |
+           touch pythondockerfile
+           cat > pythondockerfile <<- EOM  
+           FROM python:3.10.6-alpine
+           WORKDIR /python-pipeline-samples
+           ADD . /python-pipeline-samples
+           RUN pip install -r requirements.txt
+           CMD ["python" , "app.py"]
+           EOM
+           cat pythondockerfile
+           
+      -  name: build and push docker image
+         uses: docker/build-push-action@v3
+         with:
+            context:
+            file: ./pythondockerfile
+            push: true
+            tags: krishi0408/pythonsample:latest
+
+  integration_test:
+     name: integration test
+     runs-on: python:3.10.6-alpine
+     steps:
+      - name: python server 
+        container:
+              image: krishi0408/pythonsample
+        run: |
+           python3 /python-pipeline-samples/app.py
+
+      - name: test connection to server
+        container:
+              image: curlimages/curl:7.73.0
+        run: |
+           sleep 10
+           curl localhost:5000
+        
+
+
+
+
+
+            
+      
