@@ -13,11 +13,11 @@ There are a few differences, and this guide will show you the important differen
 ## Key Differences 
 
 - Gitlab configurations are stored in the ```.gitlab-ci.yml``` file in the root directory of your repository while Harness provides inline pipeline storage 
-or importing pipeline YAML (Pipeline-as-Code) from Git option.
+or importing pipeline YAML (Pipeline-as-Code) from the Git option.
 
-- **Testing and Verification:** GitLab CI comes with a set of test suites which apply to any language. 
+- **Testing and Verification:** GitLab CI comes with a set of test suites that apply to any language. 
 Harness CI goes beyond that. Test Intelligence is one of Harness CI's most advanced features which dramatically reduces build times. 
-It does so by running incremental builds which allows Harness to run relevant tests and bypass unnecessary tests. 
+It does so by running incremental builds which allow Harness to run relevant tests and bypass unnecessary tests. 
 
 - **Secrets Management:** GitLab does not offer native secrets management capabilities. They have selected Vault by HashiCorp as their first 
 supported secrets management partner which means you must first configure your Vault server. Harness includes a built-in Secrets Management 
@@ -27,7 +27,7 @@ feature that enables you to store encrypted secrets, such as access keys, and us
 
 **1. Define a Stage that executes a single build step.**
 
-In GitLab jobs are a fundamental element in the configuration file. The repositories are automatically fetched in Gitlab CI.
+In GitLab, jobs are a fundamental element in the configuration file. The repositories are automatically fetched in Gitlab CI.
 
 - Gitlab
 
@@ -43,7 +43,7 @@ In GitLab jobs are a fundamental element in the configuration file. The reposito
 
 **2. Docker image definition.**
 
-Gitlab CI defines images at the job level and supports setting this globally to be used by all jobs that don’t have image defined.
+Gitlab CI defines images at the job level and supports setting this globally to be used by all jobs that don’t have images defined.
 
 - Gitlab
     
@@ -61,7 +61,7 @@ Harness Service's Artifact Source Docker Image Name setting.
         identifier: stage1
         type: CI
         spec:
-          cloneCodebase: true # Connector clones the repositery 
+          cloneCodebase: true # Connector clones the repository 
           execution:
             steps:
               - step:
@@ -72,7 +72,7 @@ Harness Service's Artifact Source Docker Image Name setting.
                     connectorRef: Dhruba-Connector
                     image: node:17.2.0 #the primary container, where your job's commands are run
                     shell: Bash
-                    command: echo "successfull" # run the `echo` command
+                    command: echo "successful" # run the `echo` command
                     
 
 **3. Stages & Steps in Harness CI vs Jobs & Stages in Gitlab.**
@@ -97,7 +97,7 @@ Execution of the next stage is skipped when a job fails by default.
 
              job3:
              stage: test
-             script: make test
+             script: make a test
 
              job4:
              stage: deploy
@@ -131,7 +131,7 @@ The Codebase configured in the first stage can be imported into subsequent stage
                                           command: npm install
                                      - step:
                                        type: Run
-                                       name: create image
+                                       name: create the image
                                        identifier: create_image
                                        spec:
                                           shell: Sh
@@ -167,7 +167,7 @@ The Codebase configured in the first stage can be imported into subsequent stage
 
 **4. Scheduled run in Gitlab vs Scheduling pipelines using Triggers in Harness CI.**
 
-GitLab CI/CD has an easy to use UI to schedule pipelines. Also rules can be used to determine if jobs should be included or excluded from a scheduled 
+GitLab CI/CD has an easy-to-use UI to schedule pipelines. Also, rules can be used to determine if jobs should be included or excluded from a scheduled 
 pipeline.
 
 - Gitlab
@@ -374,5 +374,3 @@ your applications. Rather than just accessing a template Auto DevOps is a settin
 - [Caching](https://docs.harness.io/category/01tyeraya4-caching-ci-data)
 - [Platform Concepts](https://docs.harness.io/category/sy6sod35zi-platform-concepts) 
 - [Platform How To’s](https://docs.harness.io/category/uepsjmurpb-platform-how-tos)
-
-                  
