@@ -1,4 +1,4 @@
-## CircleCI To Harness Migration
+## CircleCi To Harness Migration
 
 ## Key differences
 
@@ -12,7 +12,7 @@ CircleCi configurations are stored in the path `.circleci/config.yml` at the roo
 
 <table>
 <tr>
-<td>  </td> <td> CircleCI </td> <td> Harness CI </td>
+<td>  </td> <td> CircleCi </td> <td> Harness CI </td>
 </tr>
 <tr>
 <td>
@@ -230,7 +230,7 @@ workflows:
 <tr>
 <td>
 
-**Environment variables**<br><br>* [Project-level Environment variables](https://circleci.com/docs/set-environment-variable/#set-an-environment-variable-in-a-project) in circle ci are set using the web app and then referenced in the pipeline. To use Environment variables across multiple projects CircleCI uses Context.<br>    <br><br>* Harness allows users to add Variables on Project, Organization, and Account levels and those can be referenced using the following expression: `<+variable.[scope].[variable_id]>`<br>    <br>    * Account-level reference: `<+variable.account.[var Id]>`<br>        <br>    * Org-level reference: `<+variable.org.[var Id]>`<br>        <br>    * Project-level reference: `<+variable.[var Id]>`<br>        <br><br>Read more about Account, project, and Org level Variables [Here.](https://docs.harness.io/article/f3450ye0ul-add-a-variable)
+**Environment variables**<br><br>* [Project-level Environment variables](https://circleci.com/docs/set-environment-variable/#set-an-environment-variable-in-a-project) in circle ci are set using the web app and then referenced in the pipeline. To use Environment variables across multiple projects CircleCi uses Context.<br>    <br><br>* Harness allows users to add Variables on Project, Organization, and Account levels and those can be referenced using the following expression: `<+variable.[scope].[variable_id]>`<br>    <br>    * Account-level reference: `<+variable.account.[var Id]>`<br>        <br>    * Org-level reference: `<+variable.org.[var Id]>`<br>        <br>    * Project-level reference: `<+variable.[var Id]>`<br>        <br><br>Read more about Account, project, and Org level Variables [Here.](https://docs.harness.io/article/f3450ye0ul-add-a-variable)
 
 </td>
 <td>
@@ -265,7 +265,7 @@ jobs:
 <tr>
 <td>
 
-**Matrix**<br><br>Matrix jobs in CircleCI are achieved using parameters and then referencing them in the pipeline using the following expression<br><br>`<< parameters.param >>`<br><br>Matrix is 1 of 2 looping executing strategies provided by Harness. Matrix gives the ability to execute the same set of tasks multiple times for a bunch of different configurations. This is achieved by mentioning user-defined tags and referencing them in the pipeline using the following expression:<br><br>`<+matrix.usertag>`<br><br>To know more about Matrix click [Here](https://docs.harness.io/article/eh4azj73m4#matrix)
+**Matrix**<br><br>Matrix jobs in CircleCi are achieved using parameters and then referencing them in the pipeline using the following expression<br><br>`<< parameters.param >>`<br><br>Matrix is 1 of 2 looping executing strategies provided by Harness. Matrix gives the ability to execute the same set of tasks multiple times for a bunch of different configurations. This is achieved by mentioning user-defined tags and referencing them in the pipeline using the following expression:<br><br>`<+matrix.usertag>`<br><br>To know more about Matrix click [Here](https://docs.harness.io/article/eh4azj73m4#matrix)
 
 
 </td>
@@ -334,13 +334,13 @@ workflows:
     *   Harness CI
         *   Harness supports Webhooks triggers, Artifacts triggers, Manifest triggers, and scheduled triggers. The two most commonly used triggers are webhook triggers based on Git events and Scheduled Triggers based on corn expression. To know more about creating a trigger visit [Harness Triggers](https://docs.harness.io/category/oya6qhmmaw-trigger-category)
     *   CircleCi Orbs
-        *   CircleCi supports triggering a pipeline on push to the code repository and Scheduled Triggers. To find out more about CircleCI Triggers visit [Circle CI Triggers](https://circleci.com/docs/triggers-overview/)
+        *   CircleCi supports triggering a pipeline on push to the code repository and Scheduled Triggers. To find out more about CircleCi Triggers visit [Circle CI Triggers](https://circleci.com/docs/triggers-overview/)
 *   CircleCi Orbs and Harness Plugin and Step Template
     *   Harness-CI
         *   Harness has Plugin Step which is _Docker Containers_ to perform a predefined task. Read more about Harness Plugins [here](https://docs.harness.io/article/8r5c3yvb8k-plugin-step-settings-reference)
         *   Harness also enables you to standardize and create step templates that can be reused across pipelines and teams that use Harness. Read More about Step Template [Here](https://docs.harness.io/article/99y1227h13-run-step-template-quickstart).
-    *   CircleCI
-        *   CircleCI orbs are reusable shareable configuration packages that are a combination of jobs, commands, and executors. Read more about orbs [Here](https://circleci.com/docs/orb-concepts/)
+    *   CircleCi
+        *   CircleCi orbs are reusable shareable configuration packages that are a combination of jobs, commands, and executors. Read more about orbs [Here](https://circleci.com/docs/orb-concepts/)
 *   We recommend going through the following list to make you more comfortable before going ahead with complex config migration.
     *   [Caching](https://docs.harness.io/category/01tyeraya4-caching-ci-data)
     *   [Platform Concepts](https://docs.harness.io/category/sy6sod35zi-platform-concepts)
